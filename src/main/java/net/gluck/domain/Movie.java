@@ -39,6 +39,9 @@ public class Movie {
 	private String rating;
 	private String description;
 
+	public long getId() {
+		return id;
+	}
 	public String getDescription() {
 		return description;
 	}

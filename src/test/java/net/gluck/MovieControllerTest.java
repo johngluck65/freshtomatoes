@@ -58,6 +58,7 @@ public class MovieControllerTest extends AbstractControllerTest {
 		movies.add(new Movie("Martin", "Fowler", null, null));
 		movies.add(new Movie("Kendall", "Scott", null, null));
 		movieRepository.save(movies);
+		
 	}
 
 	@After
@@ -82,14 +83,17 @@ public class MovieControllerTest extends AbstractControllerTest {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "Basic " + base64Creds);
 		HttpEntity<String> request = new HttpEntity<String>(headers);
-		String ownerUrl = "http://localhost:" + port + "/movies/1";
+		String movieUrl = "http://localhost:" + port + "/movies/" + expectedMovie.getId();
 		ParameterizedTypeReference<Resource<Movie>> responseType = new ParameterizedTypeReference<Resource<Movie>>() {
 		};
 
-		ResponseEntity<Resource<Movie>> responseEntity = restTemplate.exchange(ownerUrl, HttpMethod.GET, request,
+		ResponseEntity<Resource<Movie>> responseEntity = restTemplate.exchange(movieUrl, HttpMethod.GET, request,
 				responseType);
 
+		
 		Movie movie = responseEntity.getBody().getContent();
+		
+		
 		//TODO: I'm unsure why I have to lowercase this to get it to work.
 		assertEquals(expectedMovie.getName().toLowerCase(), movie.getName().toLowerCase());
 	}
