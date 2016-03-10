@@ -42,9 +42,12 @@ import net.gluck.domain.Movie;
 //(null,null,"something"null)
 //(null,null,null,"something")
 //(<REALLY LONG STRING, null,null,null)
-//(<ALL SPECIAL CHARS, null, null, null)
+//(<unicode chars, null, null, null)
+//(<system chars such as \u0000, null, null, null)
+
 //Show more than one movie
 //Delete - should work automatically but we should test
+//Prevent duplicates - not in the specification but it will be a problem going forward
 //If there was more time and I was so compelled, I'd move the tests to Cucumber
 
 public class MovieControllerTest extends AbstractControllerTest {
@@ -84,11 +87,11 @@ public class MovieControllerTest extends AbstractControllerTest {
 		headers.add("Authorization", "Basic " + base64Creds);
 		HttpEntity<String> request = new HttpEntity<String>(headers);
 		String movieUrl = "http://localhost:" + port + "/movies/" + expectedMovie.getId();
-		ParameterizedTypeReference<Resource<Movie>> responseType = new ParameterizedTypeReference<Resource<Movie>>() {
-		};
+		ParameterizedTypeReference<Resource<Movie>> responseType = 
+				new ParameterizedTypeReference<Resource<Movie>>() {};
 
-		ResponseEntity<Resource<Movie>> responseEntity = restTemplate.exchange(movieUrl, HttpMethod.GET, request,
-				responseType);
+		ResponseEntity<Resource<Movie>> responseEntity = 
+				restTemplate.exchange(movieUrl, HttpMethod.GET, request,responseType);
 
 		
 		Movie movie = responseEntity.getBody().getContent();
@@ -100,11 +103,16 @@ public class MovieControllerTest extends AbstractControllerTest {
 
 	@Test
 	public void canCreateNewMovie() {
-		final String newAuthorRequestJson = "{ \"name\" : \"Tron\", \"image_url\" : \"\",\"rating\" : \"1.0\", \"description\" : \"cheesy\"  }";
+		final String newAuthorRequestJson = "{ \"name\" : \"Tron\", "
+				+ "\"image_url\" : \"\",\"rating\" : \"1.0\", \"description\" : \"cheesy\"  }";
 
-		final ExtractableResponse<Response> extractable = given().auth().preemptive().basic("username", "password")
-				.and().contentType(ContentType.JSON).body(newAuthorRequestJson).when().post("/movies").then()
-				.assertThat().statusCode(201).and().header("Location", containsString("/movies/")).and().extract();
+		final ExtractableResponse<Response> extractable = 
+				given().auth().preemptive().basic("username", "password")
+				.and().contentType(ContentType.JSON).body(newAuthorRequestJson)
+				.when().post("/movies")
+				.then().assertThat().statusCode(201)
+				.and().header("Location", containsString("/movies/"))
+				.and().extract();
 
 		final String location = extractable.header("Location");
 		final List<Movie> actual = movieRepository.findByName("Tron");
