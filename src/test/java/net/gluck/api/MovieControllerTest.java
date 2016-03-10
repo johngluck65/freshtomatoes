@@ -1,4 +1,4 @@
-package net.gluck;
+package net.gluck.api;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
@@ -26,7 +27,7 @@ import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.ExtractableResponse;
 import com.jayway.restassured.response.Response;
 
-import net.gluck.domain.Movie;
+import net.gluck.api.domain.Movie;
 
 /*This is actually an integration test
  @author John Gluck
@@ -69,6 +70,7 @@ public class MovieControllerTest extends AbstractControllerTest {
 		movieRepository.deleteAll();
 	}
 
+	
 	//TODO: I like the RestAssured client better but I couldn't figure out how to
 	// make it do the GET correctly.  It was returning 404.
 	@Test
@@ -86,7 +88,7 @@ public class MovieControllerTest extends AbstractControllerTest {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "Basic " + base64Creds);
 		HttpEntity<String> request = new HttpEntity<String>(headers);
-		String movieUrl = "http://localhost:" + port + "/movies/" + expectedMovie.getId();
+		String movieUrl = "http://localhost:" + port + "/api/movies/" + expectedMovie.getId();
 		ParameterizedTypeReference<Resource<Movie>> responseType = 
 				new ParameterizedTypeReference<Resource<Movie>>() {};
 
@@ -100,7 +102,7 @@ public class MovieControllerTest extends AbstractControllerTest {
 		//TODO: I'm unsure why I have to lowercase this to get it to work.
 		assertEquals(expectedMovie.getName().toLowerCase(), movie.getName().toLowerCase());
 	}
-
+	
 	@Test
 	public void canCreateNewMovie() {
 		final String newAuthorRequestJson = "{ \"name\" : \"Tron\", "
@@ -109,9 +111,9 @@ public class MovieControllerTest extends AbstractControllerTest {
 		final ExtractableResponse<Response> extractable = 
 				given().auth().preemptive().basic("username", "password")
 				.and().contentType(ContentType.JSON).body(newAuthorRequestJson)
-				.when().post("/movies")
+				.when().post("/api/movies")
 				.then().assertThat().statusCode(201)
-				.and().header("Location", containsString("/movies/"))
+				.and().header("Location", containsString("/api/movies/"))
 				.and().extract();
 
 		final String location = extractable.header("Location");

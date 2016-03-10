@@ -1,4 +1,4 @@
-package net.gluck.domain;
+package net.gluck.api.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

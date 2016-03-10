@@ -1,4 +1,4 @@
-package net.gluck.security;
+package net.gluck.api.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import net.gluck.domain.Account;
-import net.gluck.domain.persistence.AccountRepository;
+import net.gluck.api.domain.Account;
+import net.gluck.api.domain.persistence.AccountRepository;
 
 /* @author John Gluck
  * @date 03/08/2016

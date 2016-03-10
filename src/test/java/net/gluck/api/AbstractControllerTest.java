@@ -1,4 +1,4 @@
-package net.gluck;
+package net.gluck.api;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -11,11 +11,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.jayway.restassured.RestAssured;
 
-import net.gluck.domain.persistence.MovieRepository;
-/* @author John Gluck
- * @description This was mostly taken from github
- * @link - https://github.com/olivergierke/spring-hateoas-sample
- */
+import net.gluck.api.Application;
+import net.gluck.api.domain.persistence.MovieRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
