@@ -1,30 +1,23 @@
+
+
+appname.controller('PostsCtrl', ['$scope', function($scope){
+    // Here the array would be your response.text:
+    $scope.names = ['John', 'Jessie', 'Johanna', 'Joy', 'Mary', 'Peter', 'Sebastian', 'Erika', 'Patrick', 'Samantha'];
+
+}]);
+
+appname.controller('AppController', ['$scope', function($scope){
+
 (function(angular) {
   var AppController = function($scope, Movie) {
     Movie.query(function(response) {
       $scope.movies = response ? response : [];
     });
     
-    $scope.addMovie = function(description) {
-      new Movie({
-        description: description,
-        checked: false
-      }).save(function(movie) {
-        $scope.movies.push(movie);
-      });
-      $scope.newMovie = "";
-    };
+
     
-    $scope.updateMovie = function(movie) {
-      movie.save();
-    };
-    
-    $scope.deleteMovie = function(movie) {
-      movie.remove(function() {
-        $scope.movies.splice($scope.movies.indexOf(movie), 1);
-      });
-    };
   };
   
   AppController.$inject = ['$scope', 'Movie'];
-  angular.module("myApp.controllers").controller("AppController", AppController);
+  angular.module("appname.controllers").controller("AppController", AppController);
 }(angular));

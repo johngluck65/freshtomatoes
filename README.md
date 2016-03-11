@@ -28,7 +28,8 @@ Note: I exposed the password.
 * I chose to implement Basic Auth security.  This is less than ideal, particularly when there are plain text passwords getting checked into the repo.
 * For the purposes of ease-of-use for this assignment, I implemented the project as jar as opposed to a war.
 * Ultimately, I wanted to provide something that worked and that represented a broad swath of all the features requested plus some bonuses which seemed to me to be important.  
-* For the front-end, I chose Angular.  It seemed complicated to try to get bower or npm to work with maven so I stayed with script imports and wro, which seems to be an outdated method but it worked
+* For the front-end, I chose Angular. I originally thought React.js would be best but it doesn't have templates and there was a bonus for having templates.  Of course, I ran out of time, so no templates. 
+* It seemed complicated to try to get bower or npm to work with maven so I stayed with script imports and wro, which seems to be an outdated method but it worked
 * I got really stuck on importing the libraries in Angular.  I'm clearly out of my element here but I've got something mostly working so I'm checking in at the moment
 
 
