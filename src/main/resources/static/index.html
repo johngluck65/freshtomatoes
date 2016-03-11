@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-<title>Hello AngularJS</title>
+<title></title>
 <link href="css/angular-bootstrap.css" rel="stylesheet">
 <style type="text/css">
 [ng\:cloak], [ng-cloak], .ng-cloak {
@@ -10,15 +10,43 @@
 </style>
 </head>
 
-<body ng-app="hello">
-  <div class="container">
-    <h1>Greeting</h1>
-    <div ng-controller="home" ng-cloak class="ng-cloak">
-      <p>The ID is {{greeting.id}}</p>
-      <p>The content is {{greeting.content}}</p>
+
+ <body ng-app="myApp">
+    <div class="container" ng-controller="AppController">
+      <div class="page-header">
+        <h1>A checklist</h1>
+      </div>
+      <div class="alert alert-info" role="alert" ng-hide="movies && movies.length > 0">
+        There are no movies yet.
+      </div>
+      <form class="form-horizontal" role="form" ng-submit="addMovie(newMovie)">
+        <div class="form-group" ng-repeat="movie in movies">
+          <div class="checkbox col-xs-9">
+            <label>
+              <input type="checkbox" ng-model="movie.checked" ng-change="updateMovie(movie)"/> {{movie.name}}
+            </label>
+          </div>
+          <div class="col-xs-3">
+            <button class="pull-right btn btn-danger" type="button" title="Delete"
+              ng-click="deleteMovie(movie)">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+          </div>
+        </div>
+        <hr />
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="newMovie" placeholder="Enter the description..." />
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="submit" ng-disabled="!newMovie" title="Add">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+          </span>
+        </div>
+      </form>
     </div>
-  </div>
-  <script src="js/angular-bootstrap.js" type="text/javascript"></script>
-  <script src="js/hello.js"></script>
-</body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js"></script>
+    <script type="text/javascript" src="./js/app.js"></script>
+    <script type="text/javascript" src="./js/controller.js"></script>
+    <script type="text/javascript" src="./js/service.js"></script>
 </html>

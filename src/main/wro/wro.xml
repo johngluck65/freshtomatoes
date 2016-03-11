@@ -4,7 +4,12 @@
   <css>webjar:bootstrap/3.2.0/less/bootstrap.less</css>   
     <css>file:${project.basedir}/src/main/wro/main.less</css>
     <js>webjar:jquery/2.1.1/jquery.min.js</js>
-    <js>webjar:bootstrap/3.2.0/bootstrap.js</js>
+    <js>webjar:bootstrap/3.3.5/bootstrap.js</js>
     <js>webjar:angularjs/1.3.8/angular.min.js</js>
+    <js>webjar:angularjs/1.3.8/angular-route.min.js</js>
+    <js>webjar:angularjs/1.3.8/angular-resource.js</js>
+    <js>webjar:lodash/4.6.1/lodash.js</js>
+    
+    <js>webjar:angular-spring-data-rest/0.4.4/dist/angular-spring-data-rest.min.js</js>
   </group>
 </groups>
